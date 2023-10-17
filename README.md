@@ -55,31 +55,49 @@ export default {
 
 ```
 <template>
-  <div>
-    <echarts-component :options="chartOptions" :chart-style="chartStyle" />
-  </div>
+  <div ref="chart" style="width: 100%; height: 400px;"></div>
 </template>
 
 <script>
-import EChartsComponent from '@/path/to/ECharts.vue';
+import echarts from 'echarts';
 
 export default {
-  components: {
-    EChartsComponent
-  },
-  data() {
-    return {
-      chartOptions: {
-        // ECharts 配置项
-        // ...
-      },
-      chartStyle: {
-        width: '100%',
-        height: '400px'
-      }
+  mounted() {
+    const chartDom = this.$refs.chart;
+    const chart = echarts.init(chartDom, null, { renderer: 'webgl' }); // 指定使用WebGL渲染引擎
+    // 设置图表的配置项和数据
+    const option = {
+     
     };
-  }
+    chart.setOption(option);
+  },
 };
 </script>
+
+<style>
+/* 你的样式 */
+</style>
+
+
+```
+# function
+```
+function isWebGLSupported() {
+  // 创建一个canvas元素
+  const canvas = document.createElement('canvas');
+  // 尝试获取WebGL上下文，如果浏览器支持WebGL，getContext会返回一个WebGLRenderingContext对象
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  // 如果gl不为null，表示浏览器支持WebGL
+  return gl !== null;
+}
+
+// 使用isWebGLSupported()函数来判断浏览器是否支持WebGL
+if (isWebGLSupported()) {
+  console.log('浏览器支持WebGL');
+  // 在这里初始化使用WebGL的ECharts图表
+} else {
+  console.log('浏览器不支持WebGL');
+  // 在这里初始化使用普通渲染引擎的ECharts图表
+}
 
 ```
