@@ -101,3 +101,16 @@ if (isWebGLSupported()) {
 }
 
 ```
+#  DNS预解析
+```
+module.exports = {
+  chainWebpack: config => {
+    config.plugin('html').tap(args => {
+      // 修改或添加dnsPrefetch配置项
+      args[0].dnsPrefetch = ['example.com', 'cdn.example.com'];
+      return args;
+    });
+  }
+};
+
+```
